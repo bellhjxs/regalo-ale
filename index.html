@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Cumpleanos</title>
+  
+  <!-- Tipografias de Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       VARIABLES Y PALETA DE COLORES EXPLICITA
+       ========================================== */
+    :root {
+      --c-primary: #E6003D;      
+      --c-vivid-red: #FF1744;    
+      --c-coral-red: #FF405E;    
+      --c-rose-accent: #FF7085;  
+      --c-soft-pink: #FFA0AD;    
+      --c-light-pink: #FFD6DC;   
+      --c-white: #FFFFFF;
+      --c-dark-text: #2c030b;
+
+      --font-main: 'Alice', serif;
+      --font-script: 'Dancing Script', cursive;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: var(--font-main);
+      color: var(--c-dark-text);
+      /* Patrón de fondo */
+      background-color: var(--c-light-pink);
+      background-image: 
+        radial-gradient(var(--c-soft-pink) 15%, transparent 16%),
+        radial-gradient(var(--c-rose-accent) 15%, transparent 16%);
+      background-size: 60px 60px;
+      background-position: 0 0, 30px 30px;
+    }
+
+    /* Sin bordes en imágenes */
+    img, svg {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+
+    /* ==========================================
+       CONTENEDOR DE DIAPOSITIVAS (SLIDES)
+       ========================================== */
+    .slide-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      background: transparent;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+      visibility: visible;
+      z-index: 2;
+    }
+
+    .slide.explode-out {
+      animation: explosionOut 0.8s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes explosionOut {
+      0% { transform: scale(1); opacity: 1; filter: blur(0); }
+      50% { transform: scale(1.4); opacity: 0.8; filter: blur(4px); }
+      100% { transform: scale(2.5); opacity: 0; filter: blur(15px); }
+    }
+
+    /* ==========================================
+       BOTÓN REGRESAR (INFERIOR IZQUIERDO)
+       ========================================== */
+    .btn-back-nav {
+      position: fixed;
+      bottom: 15px;
+      left: 15px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--c-primary);
+      border: none;
+      border-radius: 30px;
+      padding: 8px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      backdrop-filter: blur(5px);
+      transition: all 0.2s ease;
+    }
+
+    .btn-back-nav:hover {
+      background: var(--c-primary);
+      color: var(--c-white);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================
+       PÁGINA 1: PORTADA
+       ========================================== */
+    #slide-1 {
+      cursor: pointer;
+    }
+
+    .p1-img {
+      max-width: 90vw;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: 0px !important;
+      transition: transform 0.3s ease;
+    }
+
+    #slide-1:hover .p1-img {
+      transform: scale(1.02);
+    }
+
+    .p1-hint {
+      margin-top: 20px;
+      color: var(--c-primary);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 18px;
+      border-radius: 20px;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    /* ==========================================
+       PÁGINA 2: PASTEL MINECRAFT Y VELAS
+       ========================================== */
+    .p2-title {
+      font-family: var(--font-script);
+      font-size: 2.8rem;
+      color: var(--c-primary);
+      margin-bottom: 20px;
+    }
+
+    .cake-wrapper {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    .cake-img {
+      height: 200px;
+      width: auto;
+      object-fit: contain;
+      image-rendering: pixelated;
+      margin-top: -35px;
+    }
+
+    .candles-container {
+      position: relative;
+      display: flex;
+      gap: 5px;
+      z-index: 5;
+      margin-bottom: -45px;
+    }
+
+    .candle-single {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .candle-photo {
+      height: 80px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .flame {
+      position: absolute;
+      top: -12px;
+      width: 14px;
+      height: 20px;
+      background: radial-gradient(circle, #fff 10%, #ffeb3b 40%, #ff5722 80%);
+      border-radius: 50% 50% 35% 35%;
+      box-shadow: 0 0 12px #ff9800, 0 0 20px #ff5722;
+      animation: flicker 0.2s infinite alternate;
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 10;
+    }
+
+    .flame.blown-out {
+      opacity: 0;
+      transform: scale(0.1) translateY(-10px);
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); }
+      100% { transform: scale(1.1) rotate(2deg); }
+    }
+
+    .p2-instruction {
+      margin-top: 25px;
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--c-primary);
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 8px 18px;
+      border-radius: 20px;
+    }
+
+    /* ==========================================
+       PÁGINA 3: CONFIGURACIÓN DE TAMAÑOS DE IMÁGENES (SIN RECORTE)
+       ========================================== */
+    .p3-title {
+      font-family: var(--font-script);
+      font-size: 3.2rem;
+      color: var(--c-primary);
+      margin-bottom: 10px;
+    }
+
+    .p3-content-grid {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      width: 100%;
+      max-width: 1000px;
+      flex-wrap: wrap;
+    }
+
+    .pop-out-item {
+      opacity: 0;
+      transform: scale(0.2);
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .pop-out-item.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .p3-left-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    /* Ajustado para que quepa completo sin recortarse */
+    .balloons-18-img {
+      max-height: 100px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .star-balloons-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Ajustado para que quepa completo sin recortarse */
+    .star-balloon-large {
+      max-height: 60px;  
+      max-width: 60px;   
+      object-fit: contain;
+      transform: rotate(-18deg);
+    }
+
+    /* Ajustado para que quepa completo sin recortarse */
+    .star-balloon-small {
+      max-height: 90px;  
+      max-width: 90px;   
+      object-fit: contain;
+      transform: rotate(25deg);
+    }
+
+    /* Ajustado para que quepa completo sin recortarse */
+    .p3-right-img {
+      max-height: 68vh;
+      max-width: 55vw;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 0px;
+    }
+
+    /* Modal / Cajita de Alerta */
+    .alert-modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(44, 3, 11, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .alert-modal-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .alert-card {
+      background: var(--c-white);
+      border: none;
+      border-radius: 20px;
+      padding: 30px 25px;
+      max-width: 340px;
+      width: 85%;
+      text-align: center;
+      transform: scale(0.7);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .alert-modal-backdrop.active .alert-card {
+      transform: scale(1);
+    }
+
+    .alert-card h3 {
+      font-family: var(--font-main);
+      color: var(--c-primary);
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+
+    .alert-card p {
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--c-dark-text);
+      margin-bottom: 20px;
+    }
+
+    .alert-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      background: var(--c-vivid-red);
+      color: var(--c-white);
+      border: none;
+      padding: 10px 20px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: var(--c-primary);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary-alert {
+      background: var(--c-light-pink);
+      color: var(--c-primary);
+      border: none;
+      padding: 10px 20px;
+      font-family: var(--font-sans);
+      font-weight: 600;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-secondary-alert:hover {
+      background: var(--c-soft-pink);
+      transform: translateY(-2px);
+    }
+
+    /* ==========================================
+       PÁGINA 4: LAS 18 ESTRELLAS
+       ========================================== */
+    .p4-title {
+      font-family: var(--font-script);
+      font-size: 2.5rem;
+      color: var(--c-primary);
+      margin-bottom: 5px;
+    }
+
+    .stars-field {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 65vh;
+      margin: 0 auto;
+    }
+
+    .star-btn {
+      position: absolute;
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 52px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease;
+      animation: floatStar 3s infinite ease-in-out alternate;
+    }
+
+    .star-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+    }
+
+    .star-btn:hover {
+      transform: scale(1.3) rotate(10deg);
+    }
+
+    .star-btn.opened {
+      opacity: 0.35;
+      filter: grayscale(0.8);
+    }
+
+    @keyframes floatStar {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-8px) rotate(8deg); }
+    }
+
+    /* Popup del Deseo */
+    .wish-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(44, 3, 11, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2100;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .wish-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .wish-box {
+      background: var(--c-white);
+      border: none;
+      border-radius: 20px;
+      padding: 25px;
+      max-width: 350px;
+      width: 85%;
+      text-align: center;
+    }
+
+    .wish-num {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--c-rose-accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .wish-text {
+      font-family: var(--font-main);
+      font-size: 1.15rem;
+      color: var(--c-primary);
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .wishes-completed-controls {
+      display: none;
+      flex-direction: row;
+      gap: 12px;
+      margin-top: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .wishes-completed-controls.show {
+      display: flex;
+    }
+
+    .btn-secondary {
+      background: var(--c-white);
+      color: var(--c-primary);
+      border: none;
+      padding: 8px 16px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-secondary:hover {
+      background: var(--c-soft-pink);
+    }
+
+    /* ==========================================
+       PÁGINA 5 Y 6: CARTAS Y LISTAS
+       ========================================== */
+    .p5-container, .p6-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .paper-card {
+      position: relative;
+      background: #faf6f0;
+      background-image: linear-gradient(#e8e2d5 1px, transparent 1px);
+      background-size: 100% 1.8em;
+      width: 90%;
+      max-width: 550px;
+      max-height: 72vh;
+      padding: 35px 25px;
+      border-radius: 0px;
+      border: none;
+      overflow-y: auto;
+      text-align: left;
+    }
+
+    .paper-card h2 {
+      font-family: var(--font-script);
+      font-size: 2.2rem;
+      color: var(--c-primary);
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .paper-text {
+      font-family: var(--font-main);
+      font-size: 1.05rem;
+      line-height: 1.8em;
+      color: #3a2226;
+      white-space: pre-line;
+      margin-bottom: 15px;
+    }
+
+    .p5-footer {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .p6-footer-outside {
+      text-align: center;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .gif-corner {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      width: 90px;
+      height: 90px;
+      object-fit: contain;
+      z-index: 100;
+      pointer-events: none;
+    }
+
+    /* Pista de selección P6 */
+    .p6-nav-buttons {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 20px;
+      width: 100%;
+    }
+
+    .btn-tab {
+      background: #f1e9dd;
+      color: var(--c-primary);
+      border: 2px solid var(--c-soft-pink);
+      padding: 10px 18px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 700;
+      border-radius: 25px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-tab:hover {
+      background: var(--c-light-pink);
+      transform: translateY(-2px);
+    }
+
+    .btn-tab.active {
+      background: var(--c-primary);
+      color: var(--c-white);
+      border-color: var(--c-primary);
+      box-shadow: 0 4px 10px rgba(230, 0, 61, 0.25);
+    }
+
+    .btn-tab img, .btn-tab svg {
+      width: 20px;
+      height: 20px;
+      object-fit: contain;
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Estilos específicos de la lista de deseos */
+    .wishes-ol {
+      list-style: none;
+      counter-reset: wish-counter;
+      padding: 0;
+      margin-bottom: 10px;
+    }
+
+    .wishes-ol li {
+      counter-increment: wish-counter;
+      position: relative;
+      font-family: var(--font-main);
+      font-size: 1.05rem;
+      line-height: 1.8em;
+      color: #3a2226;
+      padding-left: 35px;
+      margin-bottom: 10px;
+    }
+
+    .wishes-ol li::before {
+      content: counter(wish-counter) ".";
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-weight: bold;
+      color: var(--c-primary);
+      font-family: var(--font-sans);
+    }
+
+    .paper-card::-webkit-scrollbar {
+      width: 6px;
+    }
+    .paper-card::-webkit-scrollbar-thumb {
+      background: var(--c-soft-pink);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BOTÓN PARA REGRESAR UNA PÁGINA -->
+  <button id="btn-back" class="btn-back-nav" style="display: none;" onclick="prevSlide()">
+    &#8592; Regresar
+  </button>
+
+  <div class="slide-container">
+
+    <!-- PÁGINA 1: PORTADA -->
+    <div class="slide active" id="slide-1" onclick="nextSlide()">
+      <img class="p1-img" src="https://i.ibb.co/JRqSPV5W/White-and-Black-Minimal-November-Calendar-20261028-153837-0000-040031.png" alt="Calendario">
+      <div class="p1-hint">Toca la pantalla para continuar 𖹭</div>
+    </div>
+
+    <!-- PÁGINA 2: PASTEL Y VELAS -->
+    <div class="slide" id="slide-2">
+      <h1 class="p2-title">Antes de continuar, pide un deseo!</h1>
+      
+      <div class="cake-wrapper" onclick="blowOutCandles()">
+        <!-- Velas ajustadas -->
+        <div class="candles-container">
+          <!-- Vela 1 -->
+          <div class="candle-single">
+            <div class="flame" id="flame-1"></div>
+            <img class="candle-photo" src="https://cdn.imageurlgenerator.com/uploads/936da398-140a-421c-8f51-f6e8bd0175f6.png" alt="Vela 1">
+          </div>
+
+          <!-- Vela 8 -->
+          <div class="candle-single">
+            <div class="flame" id="flame-2"></div>
+            <img class="candle-photo" src="https://cdn.imageurlgenerator.com/uploads/cfd60399-e19d-4496-ae32-9a7990f43441.png" alt="Vela 8">
+          </div>
+        </div>
+
+        <!-- Pastel Minecraft PNG -->
+        <img class="cake-img" src="https://cdn.apexminecrafthosting.com/img/uploads/2020/07/09153923/cake.png" alt="Pastel Minecraft PNG">
+      </div>
+
+      <div class="p2-instruction">Toca las velas para soplarlas 𖹭</div>
+    </div>
+
+    <!-- PÁGINA 3: FELIZ CUMPLEAÑOS AMOR -->
+    <div class="slide" id="slide-3">
+      <h1 class="p3-title">¡Feliz cumpleaños amor!</h1>
+
+      <div class="p3-content-grid">
+        <!-- Columna izquierda: Globos y estrellas debajo -->
+        <div class="p3-left-col">
+          <img class="balloons-18-img pop-out-item" id="pop-1" src="https://static.vecteezy.com/system/resources/thumbnails/036/304/468/small_2x/silver-3d-number-18-png.png" alt="Globos 18">
+
+          <div class="star-balloons-container pop-out-item" id="pop-2">
+            <img class="star-balloon-large" src="https://cdn.shopify.com/s/files/1/0269/3552/5429/products/estrella-mediana-rojo_1200x1200.png?v=1586460560" alt="Estrella Roja Grande">
+            <img class="star-balloon-small" src="https://cdn.shopify.com/s/files/1/0269/3552/5429/products/estrella-mediana-rojo_1200x1200.png?v=1586460560" alt="Estrella Roja Mediana">
+          </div>
+        </div>
+
+        <!-- Columna derecha: Imagen protagonista -->
+        <img class="p3-right-img pop-out-item" id="pop-3" src="https://cdn.imageurlgenerator.com/uploads/02ae6e3a-c08b-403f-94a9-38ea2ed62219.png" alt="Foto protagonista derecha">
+      </div>
+    </div>
+
+    <!-- PÁGINA 4: LAS 18 ESTRELLAS -->
+    <div class="slide" id="slide-4">
+      <h1 class="p4-title">18 Deseos para ti 𖹭</h1>
+      <p style="font-size:0.85rem; color:var(--c-primary); font-family:var(--font-sans); margin-bottom: 10px;">Toca cada estrella para descubrir un deseo</p>
+
+      <div class="stars-field" id="stars-field"></div>
+
+      <div class="wishes-completed-controls" id="completed-controls">
+        <button class="btn-secondary" onclick="resetWishes()">Verlos de nuevo 𖹭</button>
+        <button class="btn-action" onclick="nextSlide()">Finalizar regalo</button>
+      </div>
+    </div>
+
+    <!-- PÁGINA 5: CARTA FINAL -->
+    <div class="slide" id="slide-5">
+      <div class="p5-container">
+        <div class="paper-card">
+          <h2>Para mi Ale, feliz cumpleaños 𖹭</h2>
+          <div class="paper-text" id="letter-content">
+Feliz cumpleaños, mi amor. Hoy cumples 18 años y me hace muy feliz poder acompañarte en un día tan especial para ti. Me siento muy afortunada de haberte conocido y de tener la oportunidad de celebrar tu vida contigo. Espero que este sea el primero de muchísimos cumpleaños en los que pueda estar a tu lado, porque de verdad me hace mucha ilusión pensar en todas las fechas especiales que todavía nos quedan por compartir.
+
+Quiero que sepas lo mucho que te amo y lo especial que eres para mí. Eres, sin exagerar, el hombre más lindo de toda la tierra. Tal vez no seas perfecto para todo el mundo, pero para mí lo eres, y creo que eso es lo más bonito, porque no necesito que nadie más vea en ti lo que yo veo. Me encanta tu físico, tu sonrisa, tu forma de hablar, tu humor medio tonto y esa manera tan tuya de hacerme reír. Me gustan tantas cosas de ti que a veces siento que podría pasarme horas hablando de ellas y todavía me quedarían muchísimas más por decir.
+
+Me encanta conocerte, aprender de ti y descubrir poco a poco todas esas partes de ti que te hacen ser quien eres. Y es muy bonito darme cuenta de que, mientras más te conozco, más me sorprendes y más me enamoro de ti. No sé cómo explicarlo, pero siempre encuentro alguna cosita nueva que me hace quererte todavía más. Hasta las cosas más pequeñas, como cuando me dices cachetona o mami, consiguen hacerme muy feliz. Son detalles que quizá parezcan simples, pero que yo adoro porque vienen de ti. Eres mi niño bonito y no tienes idea de cuánto me gusta poder llamarte así.
+
+También quiero agradecerte por lo que has traído a mi vida. Desde que llegaste, me has dado muchísima felicidad y confianza. Hiciste que volviera a tener ganas de amar a alguien y, de una manera que quizá ni siquiera imaginas, lograste que pudiera volver a verme compartiendo mi futuro con otra persona. Y eso significa muchísimo para mí. Me gusta lo que siento contigo, me gusta la persona que soy cuando estoy a tu lado y me gusta pensar en todo lo que todavía podemos vivir juntos. Me haces ilusión, Ale, y me encanta que seas tú quien me haga sentir todas estas cosas.
+
+Hay muchas cosas que admiro de ti, pero tu resiliencia, tu valentía y la madurez con la que enfrentas tantas cosas son algunas de las que más me gustan. Admiro mucho tu capacidad de seguir adelante y la persona que eres, incluso cuando las cosas no son fáciles. Quiero que nunca olvides lo mucho que vales y que puedas sentirte orgulloso de ti mismo, porque yo lo estoy. Me parece precioso poder conocer no solamente tus partes bonitas y tus días felices, sino también aprender de ti cuando las cosas se complican. Quiero seguir conociéndote en todas tus versiones, descubrir tus sueños, escuchar tus pensamientos, aprender tus gustos y entender cada vez más tu forma de ver el mundo.
+
+Y si hay algo que deseo de verdad, es poder acompañarte en esta nueva etapa de tu vida y en muchísimas más que vengan después. Quiero verte crecer, cumplir tus metas, descubrir cosas nuevas y convertirte en todo aquello que sueñas ser. Quiero poder celebrar tus logros contigo, escucharte cuando necesites hablar, hacerte reír cuando tengas un mal día y recordarte cuánto te amo cuando necesites un poquito de cariño. No porque tenga que hacerlo, sino porque me nace quererte así, porque eres tú y porque me hace feliz tener la oportunidad de compartir todo esto contigo.
+
+No sé qué nos tenga preparado el futuro ni cómo serán todas las cosas que todavía nos faltan por vivir, pero sí sé que me hace muy feliz imaginar que puedo seguir conociéndote y enamorándome de ti durante mucho tiempo. Quiero que tengamos muchísimas historias que contar, recuerdos que guardar y cumpleaños que celebrar. Quiero tener la oportunidad de descubrir todas esas pequeñas cosas que todavía no sé de ti y que, seguramente, terminarán convirtiéndose en algunas de mis favoritas. Porque si algo he aprendido desde que te conozco, es que enamorarme de ti no ha sido solamente quererte por quien eres ahora, sino también tener muchísimas ganas de seguir descubriendo quién eres y quién quieres llegar a ser.
+
+Espero que hoy puedas sentirte tan querido como realmente eres y que nunca dudes de lo importante que eres para mí. Me alegra muchísimo que hayas nacido, que estés hiera y que, entre tantas personas en el mundo, haya tenido la suerte de coincidir contigo. De todas las cosas bonitas que me han pasado, conocerte es una de las que más agradezco.
+
+Felices 18, mi amor. Espero poder acompañarte en muchos cumpleaños más, seguir celebrando tu existencia y tener la suerte de conocerte cada día un poquito mejor. Gracias por ser tú, por tu manera de quererme, por hacerme reír y por devolverme esas ganas tan bonitas de imaginar un futuro con alguien.
+
+Te amo muchísimo, Ale. Más de lo que a veces sé explicar con palabras, y espero que nunca te falten motivos para recordarlo. Feliz cumpleaños a mi niño bonito, al hombre que me tiene tan enamorada y a una de las personas más especiales que he tenido la suerte de conocer.
+          </div>
+
+          <div class="p5-footer">
+            <button class="btn-action" onclick="goToSlide(6)">Ver mis deseos y carta 𖹭</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ESPACIO LISTO PARA TU GIF FINAL -->
+      <img class="gif-corner" src="" alt="GIF final" id="final-gif" style="display:none;">
+    </div>
+
+    <!-- PÁGINA 6: PESTAÑAS Y BOTÓN AFUERA -->
+    <div class="slide" id="slide-6">
+      <div class="p6-container">
+        <div class="paper-card">
+          <!-- BOTONES DE NAVEGACIÓN DE CONTENIDO -->
+          <div class="p6-nav-buttons">
+            <button class="btn-tab active" id="tab-btn-wishes" onclick="switchTab('wishes')">
+              <img src="https://static.vecteezy.com/system/resources/previews/027/856/364/original/glossy-five-pointed-golden-star-isolated-on-transparent-background-ai-generative-png.png" alt="Estrella">
+              Ver deseos
+            </button>
+            <button class="btn-tab" id="tab-btn-letter" onclick="switchTab('letter')">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Ver carta
+            </button>
+          </div>
+
+          <!-- PESTAÑA 1: LISTA DE DESEOS -->
+          <div class="tab-content active" id="tab-wishes">
+            <h2>Tus 18 Deseos 𖹭</h2>
+            <ol class="wishes-ol" id="summary-wishes-list"></ol>
+          </div>
+
+          <!-- PESTAÑA 2: CARTA COMPLETA -->
+          <div class="tab-content" id="tab-letter">
+            <h2>Carta para Ale 𖹭</h2>
+            <div class="paper-text" id="summary-letter-content"></div>
+          </div>
+        </div>
+
+        <!-- BOTÓN INICIO FUERA DE LA CAJITA -->
+        <div class="p6-footer-outside">
+          <button class="btn-action" onclick="goToSlide(1)">Volver al inicio ↺</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MODAL ALERTA P3 (CON BOTÓN ESPERA) -->
+  <div class="alert-modal-backdrop" id="alert-modal">
+    <div class="alert-card">
+      <h3>¡Sorpresa!</h3>
+      <p>Cumples 18 años, y te tengo 18 deseos...</p>
+      <div class="alert-buttons">
+        <button class="btn-secondary-alert" onclick="delayAlert()">Espera</button>
+        <button class="btn-action" onclick="closeAlertAndProceed()">Ver deseos</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DESEO P4 -->
+  <div class="wish-modal" id="wish-modal">
+    <div class="wish-box">
+      <div class="wish-num" id="wish-num">Deseo #1</div>
+      <div class="wish-text" id="wish-text">Texto...</div>
+      <button class="btn-action" onclick="closeWishModal()">Regresar a los siguientes deseos</button>
+    </div>
+  </div>
+
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 6;
+    let candlesBlown = false;
+    let openedWishesCount = 0;
+    let alertTimer = null;
+
+    const wishesList = [
+      "Deseo que tengas mucha salud",
+      "Te deseo una vida plena y duradera",
+      "Deseo que la pases muy bonito hoy y en tus siguientes cumpleaños",
+      "Deseo que nunca te falte absolutamente nada",
+      "Deseo que puedas cumplir todas tus metas",
+      "Te deseo una vida llena de felicidad y buenos momentos",
+      "Te deseo mucho mucho dinero",
+      "Deseo que siempre estés rodeado de mucho amor",
+      "Te deseo mucha prosperidad en todo lo que te propongas",
+      "Te deseo amistades sinceras que te cuiden, te apoyen y celebren tus logros",
+      "Te deseo mucho amor propio para que siempre recuerdes lo mucho que vales",
+      "Te deseo paz mental para que encuentres calma y equilibrio en los días difíciles",
+      "Te deseo nuevos viajes llenos de aventuras, culturas distintas y lugares inolvidables",
+      "Deseo que siempre tengas tiempo libre para relajarte y disfrutar de lo que más te gusta",
+      "Te deseo muchas comidas deliciosas, antojos cumplidos y momentos compartidos alrededor de la mesa",
+      "Deseo que nunca te falten motivos para sonreír de la nada",
+      "Deseo que siempre puedas disfrutar de tu música favorita, tus series y pasatiempos",
+      "Deseo que vivas cada día a tu propio ritmo, sin prisas, presiones ni preocupaciones innecesarias"
+    ];
+
+    const starPngUrl = "https://static.vecteezy.com/system/resources/previews/027/856/364/original/glossy-five-pointed-golden-star-isolated-on-transparent-background-ai-generative-png.png";
+
+    function showSlide(index) {
+      if (index < 1 || index > totalSlides) return;
+
+      if (alertTimer) {
+        clearTimeout(alertTimer);
+        alertTimer = null;
+      }
+
+      document.querySelectorAll('.slide').forEach(s => {
+        s.classList.remove('active', 'explode-out');
+      });
+
+      const targetSlide = document.getElementById(`slide-${index}`);
+      targetSlide.classList.add('active');
+      currentSlide = index;
+
+      const backBtn = document.getElementById('btn-back');
+      if (currentSlide > 1) {
+        backBtn.style.display = 'flex';
+      } else {
+        backBtn.style.display = 'none';
+      }
+
+      if (currentSlide === 1) {
+        resetCandles();
+      }
+
+      if (currentSlide === 3) {
+        triggerPage3Animations();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    function goToSlide(index) {
+      showSlide(index);
+    }
+
+    function blowOutCandles() {
+      if (candlesBlown) return;
+      candlesBlown = true;
+
+      document.getElementById('flame-1').classList.add('blown-out');
+      document.getElementById('flame-2').classList.add('blown-out');
+
+      setTimeout(() => {
+        const slide2 = document.getElementById('slide-2');
+        slide2.classList.add('explode-out');
+        
+        setTimeout(() => {
+          showSlide(3);
+        }, 600);
+      }, 500);
+    }
+
+    function resetCandles() {
+      candlesBlown = false;
+      const f1 = document.getElementById('flame-1');
+      const f2 = document.getElementById('flame-2');
+      if (f1) f1.classList.remove('blown-out');
+      if (f2) f2.classList.remove('blown-out');
+    }
+
+    function triggerPage3Animations() {
+      const pop1 = document.getElementById('pop-1');
+      const pop2 = document.getElementById('pop-2');
+      const pop3 = document.getElementById('pop-3');
+
+      pop1.classList.remove('show');
+      pop2.classList.remove('show');
+      pop3.classList.remove('show');
+
+      setTimeout(() => pop1.classList.add('show'), 200);
+      setTimeout(() => pop2.classList.add('show'), 500);
+      setTimeout(() => pop3.classList.add('show'), 800);
+
+      alertTimer = setTimeout(() => {
+        document.getElementById('alert-modal').classList.add('active');
+      }, 5000);
+    }
+
+    function delayAlert() {
+      document.getElementById('alert-modal').classList.remove('active');
+      alertTimer = setTimeout(() => {
+        if (currentSlide === 3) {
+          document.getElementById('alert-modal').classList.add('active');
+        }
+      }, 5000);
+    }
+
+    function closeAlertAndProceed() {
+      if (alertTimer) clearTimeout(alertTimer);
+      document.getElementById('alert-modal').classList.remove('active');
+      showSlide(4);
+    }
+
+    function initStars() {
+      const container = document.getElementById('stars-field');
+      container.innerHTML = '';
+
+      const positions = [
+        {top: '5%', left: '8%'},   {top: '6%', left: '42%'},  {top: '5%', left: '78%'},
+        {top: '22%', left: '22%'}, {top: '20%', left: '60%'}, {top: '36%', left: '5%'},
+        {top: '38%', left: '40%'}, {top: '35%', left: '80%'}, {top: '52%', left: '20%'},
+        {top: '54%', left: '62%'}, {top: '68%', left: '8%'},  {top: '70%', left: '44%'},
+        {top: '68%', left: '82%'}, {top: '84%', left: '25%'}, {top: '85%', left: '65%'},
+        {top: '18%', left: '88%'}, {top: '50%', left: '88%'}, {top: '86%', left: '2%'}
+      ];
+
+      wishesList.forEach((wish, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'star-btn';
+        btn.id = `star-${idx}`;
+        btn.style.top = positions[idx].top;
+        btn.style.left = positions[idx].left;
+        btn.style.animationDelay = `${(idx % 5) * 0.4}s`;
+
+        btn.innerHTML = `<img src="${starPngUrl}" alt="Estrella Deseo">`;
+
+        btn.onclick = () => openWish(idx);
+        container.appendChild(btn);
+      });
+    }
+
+    function openWish(index) {
+      const btn = document.getElementById(`star-${index}`);
+      if (!btn.classList.contains('opened')) {
+        btn.classList.add('opened');
+        openedWishesCount++;
+      }
+
+      document.getElementById('wish-num').innerText = `Deseo #${index + 1}`;
+      document.getElementById('wish-text').innerText = wishesList[index];
+      document.getElementById('wish-modal').classList.add('active');
+
+      if (openedWishesCount >= wishesList.length) {
+        document.getElementById('completed-controls').classList.add('show');
+      }
+    }
+
+    function closeWishModal() {
+      document.getElementById('wish-modal').classList.remove('active');
+    }
+
+    function resetWishes() {
+      openedWishesCount = 0;
+      document.getElementById('completed-controls').classList.remove('show');
+      document.querySelectorAll('.star-btn').forEach(btn => btn.classList.remove('opened'));
+    }
+
+    function switchTab(tabName) {
+      document.getElementById('tab-btn-wishes').classList.remove('active');
+      document.getElementById('tab-btn-letter').classList.remove('active');
+      document.getElementById('tab-wishes').classList.remove('active');
+      document.getElementById('tab-letter').classList.remove('active');
+
+      if (tabName === 'wishes') {
+        document.getElementById('tab-btn-wishes').classList.add('active');
+        document.getElementById('tab-wishes').classList.add('active');
+      } else {
+        document.getElementById('tab-btn-letter').classList.add('active');
+        document.getElementById('tab-letter').classList.add('active');
+      }
+    }
+
+    function populateSummaryPage() {
+      const wishesOl = document.getElementById('summary-wishes-list');
+      wishesOl.innerHTML = '';
+      wishesList.forEach(wish => {
+        const li = document.createElement('li');
+        li.textContent = wish;
+        wishesOl.appendChild(li);
+      });
+
+      const originalLetter = document.getElementById('letter-content').innerHTML;
+      document.getElementById('summary-letter-content').innerHTML = originalLetter;
+    }
+
+    window.onload = () => {
+      initStars();
+      populateSummaryPage();
+    };
+  </script>
+</body>
+</html>
